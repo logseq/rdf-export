@@ -1,0 +1,24 @@
+{
+  "name": "@logseq/rdf-export",
+  "version": "1.0.0",
+  "description": "Exports a configurable subset of a logseq graph to RDF",
+  "bin": {
+    "logseq-rdf-export": "rdf_export.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/logseq/rdf-export.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/logseq/rdf-export/issues"
+  },
+  "homepage": "https://github.com/logseq/rdf-export#readme",
+  "dependencies": {
+    "@logseq/nbb-logseq": "^1.2.168",
+    "mldoc": "^1.5.0",
+    "n3": "^1.16.3"
+  }
+}
