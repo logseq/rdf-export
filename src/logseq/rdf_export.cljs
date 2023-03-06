@@ -148,7 +148,7 @@ All of the above pages can be customized with query config options."
           (map (fn [q]
                  (map #(if (and (string? %) (string/starts-with? % "http"))
                          (.namedNode DataFactory %)
-                         (.literal DataFactory (name %)))
+                         (.literal DataFactory %))
                       q))
                quads)]
     (.addQuad writer (.quad DataFactory q1 q2 q3))))
@@ -176,8 +176,9 @@ All of the above pages can be customized with query config options."
   "Options spec"
   {:config {:alias :c
             :desc "Edn config map"}
-   :dir    {:desc "Graph directory to export"
-            :default "."}
+   :directory {:desc "Graph directory to export"
+               :alias :d
+               :default "."}
    :help   {:alias :h
             :coerce :boolean
             :desc "Print help"}})
@@ -208,10 +209,14 @@ All of the above pages can be customized with query config options."
                    (fs/writeFileSync file result)))))
 
 (defn -main [& args]
-  (let [{:keys [dir help] :as options} (cli/parse-opts args {:spec spec})
+  (let [{:keys [directory help] :as options} (cli/parse-opts args {:spec spec})
         _ (when (or help (zero? (count args)))
-            (println "Usage: logseq-rdf-export FILE [OPTIONS]\nOptions:\n" (cli/format-opts {:spec spec}))
-            (js/process.exit 1))]
-    (write-rdf-file dir (first args) (select-keys options [:cache-dir :config]))))
+            (println (str "Usage: logseq-rdf-export FILE [OPTIONS]\nOptions:\n"
+                          (cli/format-opts {:spec spec})))
+            (js/process.exit 1))
+        ;; In CI, move up a directory since the script is run in subdirectory of
+        ;; a project
+        directory' (if js/process.env.CI (path/join ".." directory) directory)]
+    (write-rdf-file directory' (first args) (select-keys options [:cache-dir :config]))))
 
 #js {:main -main}

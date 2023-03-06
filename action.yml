@@ -1,0 +1,56 @@
+name: 'Logseq RDF Export'
+description: 'Exports a subset of a Logseq graph to RDF'
+inputs:
+  rdfFile:
+    description: "Name of RDF file to save export"
+    required: true
+    default: "test.ttl"
+  directory:
+    description: "Graph's root directory"
+    required: false
+    default: '.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        repository: logseq/rdf-export
+        path: _rdf-export
+
+    - name: Set up Clojure
+      uses: DeLaGuardo/setup-clojure@master
+      with:
+        cli: 1.11.1.1182
+        bb: 1.0.164
+
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'yarn'
+        cache-dependency-path: _rdf-export/yarn.lock
+
+    - name: Fetch yarn deps
+      run: cd _rdf-export && yarn install --immutable
+      shell: bash
+
+    - name: Nbb cache
+      uses: actions/cache@v3
+      id: nbb-deps
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.gitlibs
+        key: ${{ runner.os }}-nbb-deps-${{ hashFiles('_rdf-export/nbb.edn') }}
+        restore-keys: ${{ runner.os }}-nbb-deps-
+
+    - name: Fetch nbb deps
+      if: steps.nbb-deps.outputs.cache-hit != 'true'
+      run: cd _rdf-export && yarn nbb-logseq -e ':fetching-deps'
+      shell: bash
+
+    - name: Export graph to RDF
+      run: cd _rdf-export && node rdf_export.mjs ${{ inputs.rdfFile }} --directory ${{ inputs.directory }}
+      shell: bash
