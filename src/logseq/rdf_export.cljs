@@ -147,7 +147,6 @@ All of the above pages can be customized with query config options."
   "Given a graph's dir, covert to rdf and write to given file."
   [dir file & [options]]
   (let [graph-config (get-graph-config dir (:config options))
-        _ (prn :CONFIG graph-config)
         db (get-db dir (:cache-dir options))
         writer (Writer. (clj->js {:prefixes (:prefixes graph-config)
                                   :format (:format graph-config)}))
