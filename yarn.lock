@@ -203,7 +203,7 @@ mldoc@^1.5.0:
   dependencies:
     yargs "^12.0.2"
 
-n3@^1.16.3:
+n3@^1.16.3, n3@^1.4.0:
   version "1.16.3"
   resolved "https://registry.yarnpkg.com/n3/-/n3-1.16.3.tgz#d339dca14c79648b1595a3252c5410b800b896f8"
   integrity sha512-9caLSZuMW1kdlPxEN4ka6E4E8a5QKoZ2emxpW+zHMofI+Bo92nJhN//wNub15S5T9I4c6saEqdGEu+YXJqMZVA==
@@ -388,6 +388,13 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
   integrity sha512-7FCwGGmx8mD5xQd3RPUvnSpUXHM3BWuzjtpD4TXsfcZ9EL4azvVVUscFYwD9nx8Kh+uCBC00XBtAykoMHwTh8Q==
+
+turtle-validator@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/turtle-validator/-/turtle-validator-1.1.1.tgz#7077544a85ed330231fa1cab15bac18cf17c0f39"
+  integrity sha512-k7HgLYUATigmdMvU7cdzvW6hOORwX7tBLBoFzXC0wIlN1hrvmJcJouElc+qVvIiJlBkiDY8jkxMenQ+HrVyS9w==
+  dependencies:
+    n3 "^1.4.0"
 
 which-module@^2.0.0:
   version "2.0.0"
