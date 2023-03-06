@@ -57,3 +57,4 @@ runs:
 
     - name: Validate RDF file
       run: cd _rdf-export && yarn ttl ${{ inputs.rdfFile}}
+      shell: bash
