@@ -111,6 +111,12 @@ queries](https://docs.logseq.com/#/page/advanced%20queries) is required. See
 file](https://github.com/logseq/rdf-export/blob/main/src/logseq/rdf_export/config.cljs)
 for the full list of configuration keys.
 
+## Development
+
+This github action use [nbb-logseq](https://github.com/logseq/nbb-logseq) and the [graph-parser
+library](https://github.com/logseq/logseq/tree/master/deps/graph-parser) to export a Logseq graph
+from its database.
+
 ## LICENSE
 See LICENSE.md
 
