@@ -52,9 +52,9 @@ runs:
       shell: bash
 
     - name: Export graph to RDF
-      run: cd _rdf-export && node rdf_export.mjs ${{ inputs.rdfFile }} --directory ${{ inputs.directory }}
+      run: cd _rdf-export && node rdf_export.mjs ../${{ inputs.rdfFile }} --directory ${{ inputs.directory }}
       shell: bash
 
     - name: Validate RDF file
-      run: cd _rdf-export && yarn ttl ${{ inputs.rdfFile}}
+      run: yarn ttl ${{ inputs.rdfFile}}
       shell: bash
