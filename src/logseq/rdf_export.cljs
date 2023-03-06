@@ -1,12 +1,6 @@
 (ns logseq.rdf-export
   "This ns converts a subset of a Logseq graph to an rdf file using
-https://github.com/rdfjs/N3.js. This export is configurable via a graph's config
-and by default will print a turtle file (.ttl) to the console. By default,
-the subset of a graph that is exported to rdf are:
-- class pages with properties 'type:: [[Class]]'
-- property pages with properties 'type:: [[Property]]'
-- class instance pages with properties 'type:: [[X]]' where X are pages with
-  'type:: [[Class]]'
+https://github.com/rdfjs/N3.js'
 
 All of the above pages can be customized with query config options."
   (:require ["n3" :refer [DataFactory Writer]]
@@ -18,54 +12,9 @@ All of the above pages can be customized with query config options."
             [babashka.cli :as cli]
             [clojure.edn :as edn]
             [logseq.graph-parser.cli :as gp-cli]
+            [logseq.rdf-export.config :as config]
             [datascript.transit :as dt]))
 
-(def default-config
-  "Graph-specific config to define behaviors for this export"
-  {;; Recommended: Base url for all pages in the graph
-   :base-url
-   "https://example.com/#/page/"
-   ;; Optional: Rdf format to write to. Defaults to turtle.
-   ;; Other possible values - n-triples, n-quads, trig
-   :format "turtle"
-   ;; Optional: Shortens urls in turtle output
-   :prefixes
-   {:s "https://schema.org/"}
-   ;; Optional: Property used to look up urls of property pages. Defaults
-   ;; to :url. For example, in order to resolve the description property,
-   ;; the description page has a url property with its full url.
-   :url-property :url
-
-   ;; The rest of the config determines what pages in your graph are included in
-   ;; the output. All triples/properties of a page are included.
-   ;; These config keys are all optional as they have useful defaults.
-   ;;
-   ;; Optional: Useful to add individual pages pages e.g. class and property pages
-   :additional-pages #{"Class" "Property"}
-   ;; Optional: Query to fetch all pages that are classes
-   ;; Defaults to pages with "type:: [[Class]]"
-   :class-query
-   '[:find (pull ?b [*])
-     :in $ %
-     :where
-     (page-property ?b :type "Class")]
-   ;; Optional: Query to fetch all pages that are properties.
-   ;; Defaults to pages with "type:: [[Property]]"
-   :property-query
-   '[:find (pull ?b [*])
-     :in $ %
-     :where
-     (page-property ?b :type "Property")]
-   ;; Optional:: Query to fetch all pages that are instances of classes.
-   ;; Defaults to pages with "type:: [[X]]" where X are pages with
-   ;; "type:: [[Class]]"
-   :class-instances-query
-   '[:find (pull ?b2 [*])
-     :in $ %
-     :where
-     (page-property ?b :type "Class")
-     [?b :block/original-name ?n]
-     (page-property ?b2 :type ?n)]})
 
 (defn- propertify
   [result]
@@ -169,7 +118,7 @@ All of the above pages can be customized with query config options."
     (merge-with (fn [v1 v2]
                   (if (and (map? v1) (map? v2))
                     (merge v1 v2) v2))
-                default-config
+                config/default-config
                 config)))
 
 (def spec
