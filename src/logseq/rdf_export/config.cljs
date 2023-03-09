@@ -15,6 +15,9 @@
    ;; to :url. For example, in order to resolve the description property,
    ;; the description page has a url property with its full url.
    :url-property :url
+   ;; Properties that are excluded in export for all entities.
+   ;; Useful if some properties cause issues with a rdf consumer
+   :exclude-properties []
 
    ;; The rest of the config determines what pages in your graph are included in
    ;; the output. All triples/properties of a page are included.
