@@ -15,12 +15,15 @@ All of the above pages can be customized with query config options."
             [logseq.rdf-export.config :as config]
             [datascript.transit :as dt]))
 
-(defn- propertify
-  [{:keys [exclude-properties]} result]
+(defn- create-entity
+  "Given a block map and config options, creates an entity which consists of the
+  block's properties and a few built in block attributes"
+  [{:keys [exclude-properties expand-entity-fn]} result]
   (map #(-> (:block/properties %)
             ;; TODO: Add proper tags support
             (dissoc :title :tags)
             ((fn [x] (apply dissoc x exclude-properties)))
+            expand-entity-fn
             (assoc :block/original-name
                    (or (get-in % [:block/properties :title]) (:block/original-name %))))
        result))
@@ -62,7 +65,7 @@ All of the above pages can be customized with query config options."
                        db
                        (vals rules/query-dsl-rules))
                   (map first)
-                  (propertify config))]
+                  (create-entity config))]
     (concat (mapcat #(triplify % config property-map) ents)
             (when add-labels
               (build-alias-triples ents config)))))
@@ -85,7 +88,7 @@ All of the above pages can be customized with query config options."
                        (set (map string/lower-case (:additional-pages config)))
                        (vals rules/query-dsl-rules))
                   (map first)
-                  (propertify config))]
+                  (create-entity config))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
@@ -101,7 +104,7 @@ All of the above pages can be customized with query config options."
                        db
                        (vals rules/query-dsl-rules))
                   (map first)
-                  (propertify config))]
+                  (create-entity config))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
@@ -112,7 +115,7 @@ All of the above pages can be customized with query config options."
                              db
                              (vals rules/query-dsl-rules))
                         (map first)
-                        (propertify config))
+                        (create-entity config))
         built-in-properties {:block/original-name
                              {:url (if add-labels
                                      "http://www.w3.org/2000/01/rdf-schema#label"
@@ -193,14 +196,43 @@ All of the above pages can be customized with query config options."
         (dt/read-transit-str (fs/readFileSync cache-file)))
       (let [{:keys [conn]} (gp-cli/parse-graph graph-dir {:verbose false})] @conn))))
 
+(defn- macro-subs
+  [macro-content arguments]
+  (loop [s macro-content
+         args arguments
+         n 1]
+    (if (seq args)
+      (recur
+       (string/replace s (str "$" n) (first args))
+       (rest args)
+       (inc n))
+      s)))
+
+(defn- macro-expand-entity
+  "Checks each ent value for a macro and expands it if there's a logseq config for it"
+  [m logseq-config]
+  (update-vals m
+               #(if-let [[_ macro args] (and (string? %)
+                                             (seq (re-matches #"\{\{(\S+)\s+(.*)\}\}" %)))]
+                  (if-let [content (get-in logseq-config [:macros macro])]
+                    (macro-subs content (string/split args #"\s+"))
+                    %)
+                  %)))
+
 (defn write-rdf-file
   "Given a graph's dir, covert to rdf and write to given file."
   [dir file & [options]]
   (let [graph-config (get-graph-config dir (:config options))
         db (get-db dir (:cache-dir options))
+        logseq-config (if (fs/existsSync (path/join dir "logseq" "config.edn"))
+                        (-> (path/join dir "logseq" "config.edn") fs/readFileSync str edn/read-string)
+                        {})
         writer (Writer. (clj->js {:prefixes (:prefixes graph-config)
                                   :format (:format graph-config)}))
-        quads (create-quads writer db graph-config options)]
+        graph-config' (if (:expand-macros graph-config)
+                        (assoc graph-config :expand-entity-fn #(macro-expand-entity % logseq-config))
+                        (assoc graph-config :expand-entity-fn identity))
+        quads (create-quads writer db graph-config' options)]
     (add-quads writer quads)
     (.end writer (fn [_err result]
                    (println "Writing" (count quads) "triples to file" file)

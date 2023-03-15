@@ -18,6 +18,8 @@
    ;; Properties that are excluded in export for all entities.
    ;; Useful if some properties cause issues with a rdf consumer
    :exclude-properties []
+   ;; When enabled expands macros in entities if they exist
+   :expand-macros false
 
    ;; The rest of the config determines what pages in your graph are included in
    ;; the output. All triples/properties of a page are included.
