@@ -1,0 +1,261 @@
+@prefix s: <https://schema.org/>.
+@prefix d: <https://docs.logseq.com/#/page/>.
+
+d:Class a s:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Class".
+d:Property a s:Property;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Property".
+s:Class <http://www.w3.org/2000/01/rdf-schema#label> "Class".
+s:Property <http://www.w3.org/2000/01/rdf-schema#label> "Property".
+d:Feature a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Feature".
+d:FeatureTag a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "FeatureTag".
+d:Platform a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Platform".
+d:Command a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Command".
+<https://docs.logseq.com/#/page/UI%20Element> a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "UI Element".
+d:Whiteboard___Object <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Whiteboard%20objects>, <https://docs.logseq.com/#/page/Whiteboard%20object>;
+    a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Object".
+d:Whiteboard___Tool <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Whiteboard%20tool>, d:Tool, d:Tools;
+    a d:Class;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Tool".
+<https://docs.logseq.com/#/page/Whiteboard%20objects> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Object".
+<https://docs.logseq.com/#/page/Whiteboard%20object> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Object".
+<https://docs.logseq.com/#/page/Whiteboard%20tool> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Tool".
+d:Tool <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Tool".
+d:Tools <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Tool".
+d:type a d:Property;
+    s:url <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "type".
+d:platforms a d:Property;
+    <http://www.w3.org/2000/01/rdf-schema#label> "platforms".
+d:description a d:Property;
+    s:url s:description;
+    <http://www.w3.org/2000/01/rdf-schema#label> "description".
+d:initial-version a d:Property;
+    <http://www.w3.org/2000/01/rdf-schema#label> "initial-version".
+d:url a d:Property;
+    s:url s:url;
+    <http://www.w3.org/2000/01/rdf-schema#label> "url".
+d:Whiteboard___Property___Links <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Whiteboard%20Links>;
+    a d:Property;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Property___Links".
+<https://docs.logseq.com/#/page/Whiteboard%20Links> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Property___Links".
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#label> "type".
+s:description <http://www.w3.org/2000/01/rdf-schema#label> "description".
+s:url <http://www.w3.org/2000/01/rdf-schema#label> "url".
+<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2000/01/rdf-schema#label> "alias".
+d:Flashcards a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Flashcards".
+<https://docs.logseq.com/#/page/Whiteboard%2FQuick%20Add> <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Quick%20Add>;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Quick Add".
+<https://docs.logseq.com/#/page/Left%20sidebar> a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Left sidebar".
+<https://docs.logseq.com/#/page/Advanced%20commands> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Advanced commands".
+<https://docs.logseq.com/#/page/Git%20Auto-Commit> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Git Auto-Commit".
+d:Headings a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Headings".
+<https://docs.logseq.com/#/page/Global%20config.edn> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Global config.edn".
+<https://docs.logseq.com/#/page/Filename%20format> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Filename format".
+d:Android a d:Platform;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Android".
+<https://docs.logseq.com/#/page/Whiteboard%2FContext%20Menu> <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Context%20Menu>;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Context Menu".
+d:Properties a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Properties".
+d:Import a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Import".
+<https://docs.logseq.com/#/page/Linked%20References> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Linked References".
+<https://docs.logseq.com/#/page/Keyboard%20shortcuts> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Keyboard shortcuts".
+d:Publishing a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Publishing".
+d:Whiteboard a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2002/07/owl#sameAs> d:Whiteboards;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard".
+<https://docs.logseq.com/#/page/Assets%20alias> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Assets alias".
+<https://docs.logseq.com/#/page/Global%20configuration> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Global configuration".
+d:Namespaces a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Namespaces".
+<https://docs.logseq.com/#/page/Unlinked%20References> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Unlinked References".
+d:iOS a d:Platform;
+    <http://www.w3.org/2000/01/rdf-schema#label> "iOS".
+<https://docs.logseq.com/#/page/All%20pages> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "All pages".
+d:slide <http://www.w3.org/2002/07/owl#sameAs> d:Presentation;
+    a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "slide".
+d:Academic a d:FeatureTag;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Academic".
+<https://docs.logseq.com/#/page/Right%20sidebar> a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Right sidebar".
+<https://docs.logseq.com/#/page/Journals%20page> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Journals page".
+d:Query a d:Command;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Query".
+<https://docs.logseq.com/#/page/Logseq%20Sync> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, d:Web, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Logseq Sync".
+<https://docs.logseq.com/#/page/Copy%20and%20Paste> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Copy and Paste".
+<https://docs.logseq.com/#/page/Knowledge%20Graph> a d:Feature;
+    <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Graph%20view>;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Knowledge Graph".
+<https://docs.logseq.com/#/page/Whiteboard%2FToolbar> <http://www.w3.org/2002/07/owl#sameAs> d:Toolbar;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Toolbar".
+d:Commands a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Commands".
+<https://docs.logseq.com/#/page/Whiteboard%2FDashboard> <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Whiteboard%20Dashboard>;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Dashboard".
+d:templates a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "templates".
+<https://docs.logseq.com/#/page/custom.css> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "custom.css".
+<https://docs.logseq.com/#/page/Youtube%20timestamp> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Youtube timestamp".
+d:Zotero a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Zotero".
+<https://docs.logseq.com/#/page/Advanced%20Queries> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Advanced Queries".
+d:Tasks a d:Feature;
+    <http://www.w3.org/2002/07/owl#sameAs> d:Todos;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Tasks".
+d:Tags a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Tags".
+d:term___alias <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/page%20alias>;
+    a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "term___alias".
+d:Draw a d:Command;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Draw".
+<https://docs.logseq.com/#/page/Find%20in%20page> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Find in page".
+<https://docs.logseq.com/#/page/Page%20and%20block%20references> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Page and block references".
+<https://docs.logseq.com/#/page/Block%20Reference> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/term%2Fblock%20reference>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Block Reference".
+<https://docs.logseq.com/#/page/ClojureScript%20Eval%20in%20a%20Block> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "ClojureScript Eval in a Block".
+d:Export a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Export".
+<https://docs.logseq.com/#/page/Publish%20Web> a d:Platform;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Publish Web".
+d:Whiteboard___Canvas <http://www.w3.org/2002/07/owl#sameAs> d:Canvas;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Canvas".
+d:Cloze a d:Command;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Cloze".
+<https://docs.logseq.com/#/page/custom.js> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "custom.js".
+<https://docs.logseq.com/#/page/Local%20Http%20server> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Local Http server".
+<https://docs.logseq.com/#/page/config.edn> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "config.edn".
+d:Calculator a d:Command;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Calculator".
+<https://docs.logseq.com/#/page/All%20Platforms> a d:Platform;
+    <http://www.w3.org/2000/01/rdf-schema#label> "All Platforms".
+<https://docs.logseq.com/#/page/Custom%20theme> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Custom theme".
+d:Queries a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Queries".
+<https://docs.logseq.com/#/page/Page%20graph> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Page graph".
+<https://docs.logseq.com/#/page/PDF%20highlights> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "PDF highlights".
+d:Web a d:Platform;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Web".
+<https://docs.logseq.com/#/page/export.css> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/Publish%20Web>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "export.css".
+<https://docs.logseq.com/#/page/Query%20table> a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Query table".
+<https://docs.logseq.com/#/page/User%20configuration> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "User configuration".
+d:Desktop a d:Platform;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Desktop".
+d:Settings a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Settings".
+<https://docs.logseq.com/#/page/plugins.edn> a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "plugins.edn".
+d:Search a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Search".
+d:Plugins a d:Feature;
+    d:platforms d:Desktop;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Plugins".
+<https://docs.logseq.com/#/page/Whiteboard%2FAction%20Bar> <http://www.w3.org/2002/07/owl#sameAs> <https://docs.logseq.com/#/page/Object%20Action%20Bar>;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Action Bar".
+<https://docs.logseq.com/#/page/Quick%20Add> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Quick Add".
+<https://docs.logseq.com/#/page/Context%20Menu> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Context Menu".
+d:Whiteboards <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard".
+d:Presentation <http://www.w3.org/2000/01/rdf-schema#label> "slide".
+<https://docs.logseq.com/#/page/Graph%20view> <http://www.w3.org/2000/01/rdf-schema#label> "Knowledge Graph".
+d:Toolbar <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Toolbar".
+<https://docs.logseq.com/#/page/Whiteboard%20Dashboard> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Dashboard".
+d:Todos <http://www.w3.org/2000/01/rdf-schema#label> "Tasks".
+<https://docs.logseq.com/#/page/page%20alias> <http://www.w3.org/2000/01/rdf-schema#label> "term___alias".
+<https://docs.logseq.com/#/page/term%2Fblock%20reference> <http://www.w3.org/2000/01/rdf-schema#label> "Block Reference".
+d:Canvas <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard___Canvas".
+<https://docs.logseq.com/#/page/Object%20Action%20Bar> <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Action Bar".
