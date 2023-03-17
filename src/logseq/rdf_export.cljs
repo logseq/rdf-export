@@ -40,7 +40,7 @@ All of the above pages can be customized with query config options."
 (defn- page-url [page-name config]
   (str (:base-url config) (js/encodeURIComponent page-name)))
 
-;; overpermissive but nothing harmful yet
+;; overly permissive but nothing harmful yet
 (defn- url? [s]
   (re-matches #"\S+://\S+" s))
 

@@ -1,0 +1,10 @@
+{:tasks
+ {test
+  {:doc "Regression test done against local docs repo"
+   :task
+   (do
+     (shell "node rdf_export.mjs docs.ttl -d ../docs")
+     ;; Fixture from b8ed1ce807117e03afeba75a2b276e28b63b2710 of https://github.com/logseq/docs
+     (shell "diff docs.ttl test/fixtures/docs.ttl")
+     (shell "ttl docs.ttl")
+     (println "Success!"))}}}
