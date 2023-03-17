@@ -7,43 +7,70 @@ All of the above pages can be customized with query config options."
             ["fs" :as fs]
             ["path" :as path]
             [clojure.string :as string]
+            [clojure.edn :as edn]
+            [clojure.set :as set]
             [datascript.core :as d]
             [logseq.db.rules :as rules]
             [babashka.cli :as cli]
-            [clojure.edn :as edn]
             [logseq.graph-parser.cli :as gp-cli]
             [logseq.rdf-export.config :as config]
             [datascript.transit :as dt]))
 
-(defn- create-entity
-  "Given a block map and config options, creates an entity which consists of the
-  block's properties and a few built in block attributes"
+(defn- create-entities
+  "Given a seq of block maps and config options, create entities which consist
+  of the block's properties and a few built in block attributes"
   [{:keys [exclude-properties expand-entity-fn]} result]
-  (map #(-> (:block/properties %)
+  (map
+   (fn [block]
+     (let [block-name (or (get-in block [:block/properties :title])
+                          (:block/original-name block)
+                          ;; Use page name for non-journal pre-blocks
+                          (when-not (get-in block [:block/page :block/journal?])
+                            (get-in block [:block/page :block/original-name])))]
+       (cond->
+        (-> (:block/properties block)
             ;; TODO: Add proper tags support
             (dissoc :title :tags)
             ((fn [x] (apply dissoc x exclude-properties)))
-            expand-entity-fn
-            (assoc :block/original-name
-                   (or (get-in % [:block/properties :title]) (:block/original-name %))))
-       result))
+            expand-entity-fn)
+        (some? block-name)
+        (assoc :block/original-name block-name))))
+   result))
 
 (defn- page-url [page-name config]
   (str (:base-url config) (js/encodeURIComponent page-name)))
 
+;; overpermissive but nothing harmful yet
+(defn- url? [s]
+  (re-matches #"\S+://\S+" s))
+
 (defn- triplify
   "Turns an entity map into a coll of triples"
-  [m {:keys [url-property] :as config} property-map]
-  (mapcat
-   (fn [prop]
-     (map #(vector (page-url (:block/original-name m) config)
-                   (or (url-property (get property-map prop))
-                       (page-url (name prop) config))
-                   %)
-          (let [v (m prop)]
-            ;; If a collection, they are refs/pages
-            (if (coll? v) (map #(page-url % config) v) [v]))))
-   (keys m)))
+  [m
+   {:keys [url-property type-property classes-without-ids unique-id-properties] :as config}
+   property-map]
+  (if-let [subject (if (:block/original-name m)
+                     (page-url (:block/original-name m) config)
+                     (some #(when-let [v (m %)]
+                              (if (url? v) v (page-url v config)))
+                           unique-id-properties))]
+    (mapcat
+     (fn [prop]
+       (map #(vector
+              subject
+              ;; predicate
+              (or (url-property (get property-map prop))
+                  (page-url (name prop) config))
+              ;; object
+              %)
+            (let [v (m prop)]
+              ;; If a collection, they are refs/pages
+              (if (coll? v) (map #(page-url % config) v) [v]))))
+     (keys m))
+    (do
+      (when (empty? (set/intersection classes-without-ids (m type-property)))
+        (println "Skip entity b/c no name or url for entity - " (pr-str m)))
+      [])))
 
 (defn- block->label-triple [block]
   [(:url block)
@@ -65,7 +92,7 @@ All of the above pages can be customized with query config options."
                        db
                        (vals rules/query-dsl-rules))
                   (map first)
-                  (create-entity config))]
+                  (create-entities config))]
     (concat (mapcat #(triplify % config property-map) ents)
             (when add-labels
               (build-alias-triples ents config)))))
@@ -78,7 +105,8 @@ All of the above pages can be customized with query config options."
    (when add-labels
      (map block->label-triple (filter :url ents)))))
 
-(defn- add-additional-pages [db config property-map {:keys [add-labels]}]
+(defn- add-additional-pages
+  [db {:keys [type-property] :as config} property-map {:keys [add-labels]}]
   (let [ents (->> (d/q '[:find (pull ?b [*])
                          :in $ ?names %
                          :where
@@ -88,15 +116,15 @@ All of the above pages can be customized with query config options."
                        (set (map string/lower-case (:additional-pages config)))
                        (vals rules/query-dsl-rules))
                   (map first)
-                  (create-entity config))]
+                  (create-entities config))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
-       ;; TODO: This makes modeling assumptions and should be made more general
+       ;; This was added with a certain ontology in mind and may need to be revisited
        (->> ents
-            (filter :type)
+            (filter type-property)
             (map #(block->label-triple
-                   {:url (:type %)
+                   {:url (type-property %)
                     :block/original-name (:block/original-name %)})))))))
 
 (defn- add-class-instances [db config property-map {:keys [add-labels]}]
@@ -104,7 +132,7 @@ All of the above pages can be customized with query config options."
                        db
                        (vals rules/query-dsl-rules))
                   (map first)
-                  (create-entity config))]
+                  (create-entities config))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
@@ -115,7 +143,7 @@ All of the above pages can be customized with query config options."
                              db
                              (vals rules/query-dsl-rules))
                         (map first)
-                        (create-entity config))
+                        (create-entities config))
         built-in-properties {:block/original-name
                              {:url (if add-labels
                                      "http://www.w3.org/2000/01/rdf-schema#label"
@@ -142,7 +170,7 @@ All of the above pages can be customized with query config options."
 (defn- add-quads [writer quads]
   (doseq [[q1 q2 q3]
           (map (fn [q]
-                 (map #(if (and (string? %) (string/starts-with? % "http"))
+                 (map #(if (and (string? %) (url? %))
                          (.namedNode DataFactory %)
                          (.literal DataFactory %))
                       q))

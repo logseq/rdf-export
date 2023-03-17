@@ -5,43 +5,53 @@
   {;; Recommended: Base url for all pages in the graph
    :base-url
    "https://example.com/#/page/"
-   ;; Optional: Rdf format to write to. Defaults to turtle.
+
+   ;; The rest of these config keys are optional:
+
+   ;; Rdf format to write to. Defaults to turtle.
    ;; Other possible values - n-triples, n-quads, trig
    :format "turtle"
-   ;; Optional: Shortens urls in turtle output
+   ;; Shortens urls in turtle output
    :prefixes
    {:s "https://schema.org/"}
-   ;; Optional: Property used to look up urls of property pages. Defaults
+   ;; Property used to look up urls of property pages. Defaults
    ;; to :url. For example, in order to resolve the description property,
    ;; the description page has a url property with its full url.
    :url-property :url
+   ;; Property used to look up a Class of an entity. Default to :type
+   :type-property :type
+   ;; When an entity doesn't have a unique string to identify it, usually through
+   ;; :block/original-name, look up these properties in order
+   :unique-id-properties []
    ;; Properties that are excluded in export for all entities.
    ;; Useful if some properties cause issues with a rdf consumer
    :exclude-properties []
    ;; When enabled expands macros in entities if they exist
    :expand-macros false
+   ;; Silences warning messages for classes of entities that don't have a unique id
+   :classes-without-ids #{}
 
    ;; The rest of the config determines what pages in your graph are included in
    ;; the output. All triples/properties of a page are included.
    ;; These config keys are all optional as they have useful defaults.
    ;;
-   ;; Optional: Useful to add individual pages pages e.g. class and property pages
+   ;; Useful to add individual pages pages e.g. class and property pages
    :additional-pages #{"Class" "Property"}
-   ;; Optional: Query to fetch all pages that are classes
+   ;; Query to fetch all pages that are classes
    ;; Defaults to pages with "type:: [[Class]]"
    :class-query
    '[:find (pull ?b [*])
      :in $ %
      :where
      (page-property ?b :type "Class")]
-   ;; Optional: Query to fetch all pages that are properties.
+   ;; Query to fetch all pages that are properties.
    ;; Defaults to pages with "type:: [[Property]]"
    :property-query
    '[:find (pull ?b [*])
      :in $ %
      :where
      (page-property ?b :type "Property")]
-   ;; Optional:: Query to fetch all pages that are instances of classes.
+   ;; Query to fetch all pages that are instances of classes.
    ;; Defaults to pages with "type:: [[X]]" where X are pages with
    ;; "type:: [[Class]]"
    :class-instances-query
