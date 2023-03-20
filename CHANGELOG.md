@@ -8,7 +8,8 @@
     silence them for certain classes
 * Add :expand-macros config to expand macros in export
 * Add --add-labels CLI option to add labels to all entities and use more
-  standard vocabs like rdfs and owl
+  standard vocabs like rdfs and owl. This option allows feeding an export
+  to a LLM e.g. https://github.com/emptycrown/llama-hub/tree/main/loader_hub/file/rdf
 * Add :exclude-properties config to exclude certain properties from export
 * Add :type-property config to look up an entity's class
 
