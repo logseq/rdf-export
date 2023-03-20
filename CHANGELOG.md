@@ -1,7 +1,7 @@
-## Unreleased
+## 0.2.0
 
 * Add support for block level exports
-  * Use a a block's page name as an identity when no name is found
+  * Use a block's page name as an identity when no name is found
   * Add :unique-id-properties config to uniquely identify a block when no
     :block/name exists
   * Add warnings when a block can't be exported and a :classes-without-ids to
