@@ -84,7 +84,8 @@ later usage using [upload-artifact](https://github.com/actions/upload-artifact):
 
 ### CLI
 
-To use this as a CLI locally, first install it:
+To use this as a CLI locally, first install
+[babashka](https://github.com/babashka/babashka#installation). Then:
 
 ```sh
 $ git clone https://github.com/logseq/rdf-export
