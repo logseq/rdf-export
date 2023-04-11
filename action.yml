@@ -43,6 +43,7 @@ runs:
         path: |
           ~/.m2/repository
           ~/.gitlibs
+          _rdf-export/.nbb/.cache
         key: ${{ runner.os }}-nbb-deps-${{ hashFiles('_rdf-export/nbb.edn') }}
         restore-keys: ${{ runner.os }}-nbb-deps-
 
