@@ -53,6 +53,16 @@ d:url a d:Property;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Advanced queries are written with [Datalog](https://en.wikipedia.org/wiki/Datalog) and query the [Datascript](https://github.com/tonsky/datascript) database.";
     s:name "Advanced Queries".
+<https://docs.logseq.com/#/page/Page%20graph> a d:Feature;
+    s:description <https://docs.logseq.com/#/page/Graph%20view>;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "Page graph".
+<https://docs.logseq.com/#/page/custom.js> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:name "custom.js".
+d:Import a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:name "Import".
 <https://docs.logseq.com/#/page/Assets%20alias> a d:Feature;
     d:platforms d:Desktop;
     d:initial-version "unreleased";
@@ -70,142 +80,140 @@ d:url a d:Property;
 <https://docs.logseq.com/#/page/Page%20and%20block%20references> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "Page and block references".
-<https://docs.logseq.com/#/page/Whiteboard%2FEmbed> s:sameAs <https://docs.logseq.com/#/page/Whiteboard%20embeds>;
-    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:name "Whiteboard/Embed".
-<https://docs.logseq.com/#/page/Whiteboard%2FContext%20Menu> s:sameAs <https://docs.logseq.com/#/page/Context%20Menu>;
+<https://docs.logseq.com/#/page/Journals%20page> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "Journals page".
+<https://docs.logseq.com/#/page/Whiteboard%2FAction%20Bar> s:sameAs <https://docs.logseq.com/#/page/Object%20Action%20Bar>;
     a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:description <https://docs.logseq.com/#/page/Whiteboard%20objects>;
-    s:name "Whiteboard/Context Menu".
-<https://docs.logseq.com/#/page/Left%20sidebar> a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:name "Left sidebar".
-<https://docs.logseq.com/#/page/Right%20sidebar> a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:name "Right sidebar".
-d:templates a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:name "templates".
-d:Query a d:Command;
-    s:description d:Queries;
-    s:name "Query".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FText> s:sameAs d:Text;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Create text elements";
-    s:name "Whiteboard/Tool/Text".
-<https://docs.logseq.com/#/page/custom.css> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Local config file, logseq/custom.css, loads custom css for a graph on startup";
-    s:name "custom.css".
-<https://docs.logseq.com/#/page/Query%20table> a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:description d:Queries, <https://docs.logseq.com/#/page/Advanced%20Queries>;
-    s:name "Query table".
-<https://docs.logseq.com/#/page/export.css> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:description "Local config file, logseq/export.css, loads custom css for a published graph";
-    s:name "export.css".
-d:slide s:sameAs d:Presentation;
-    a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "slide".
-<https://docs.logseq.com/#/page/User%20configuration> a d:Feature;
-    s:description "Users can configure logseq with a number of files.";
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "User configuration".
-<https://docs.logseq.com/#/page/term%2Falias> s:sameAs <https://docs.logseq.com/#/page/page%20alias>;
-    a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Provides a readable alias for a page. A page can have multiple aliases. Page references with the alias will automatically redirect to the original page";
-    s:name "term/alias".
-<https://docs.logseq.com/#/page/Git%20Auto-Commit> a d:Feature;
-    d:platforms d:Desktop;
-    s:description "Automatically save commit changes to a git repository.";
-    s:name "Git Auto-Commit".
-d:Zotero a d:Feature;
-    s:description "Built in integration that helps import your Zotero items as pages seamlessly. [Zotero](https://www.zotero.org/) is a free, easy-to-use tool to help you collect, organize, cite, and share research.";
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:name "Zotero".
-d:Plugins a d:Feature;
-    s:description "Extends the functionality of logseq with third party tools";
-    d:platforms d:Desktop;
-    s:name "Plugins".
-<https://docs.logseq.com/#/page/Logseq%20Sync> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, d:Web, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:description "Paid feature that provides encrypted synchronization of graphs between devices.";
-    s:name "Logseq Sync".
-d:Calculator a d:Command;
-    s:description "The calculator supports basic operations like `+ - / * ^`  and advanced operations (factorial, modular division, and scientific functions).";
-    s:name "Calculator".
-d:Namespaces a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Used to group a set of related pages";
-    s:name "Namespaces".
-<https://docs.logseq.com/#/page/Whiteboard%2FDashboard> s:sameAs <https://docs.logseq.com/#/page/Whiteboard%20Dashboard>;
-    a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:description "A page where you can manage your Whiteboards.";
-    s:name "Whiteboard/Dashboard".
-<https://docs.logseq.com/#/page/Keyboard%20shortcuts> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Provides keyboards shortcuts for running core commands and actions. Shortcuts can be customized through user configuration.";
-    s:name "Keyboard shortcuts".
-<https://docs.logseq.com/#/page/Linked%20References> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "Linked References".
-<https://docs.logseq.com/#/page/Youtube%20timestamp> a d:Feature;
-    d:platforms d:Desktop;
-    s:name "Youtube timestamp".
-<https://docs.logseq.com/#/page/Whiteboard%2FCanvas> s:sameAs d:Canvas;
-    a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:description <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:name "Whiteboard/Canvas".
-<https://docs.logseq.com/#/page/ClojureScript%20Eval%20in%20a%20Block> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:description "Run ClojureScript in a block using [sci](https://github.com/babashka/sci)";
-    s:name "ClojureScript Eval in a Block".
-<https://docs.logseq.com/#/page/Query%20Builder> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description d:Queries;
-    s:name "Query Builder".
-<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FYoutube> s:sameAs d:Youtube, <https://docs.logseq.com/#/page/Youtube%20video>, <https://docs.logseq.com/#/page/Youtube%20videos>;
-    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Embedded Youtube videos";
-    d:supports "Url, Link to page/block, Mobile context menu";
-    s:name "Whiteboard/Object/Youtube".
-d:Commands a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:description "Functionality that can be invoked from any block";
-    s:name "Commands".
-<https://docs.logseq.com/#/page/Find%20in%20page> a d:Feature;
-    d:initial-version "0.8.3";
-    s:description "Finds any text that is visible or loaded into the current page";
-    d:platforms d:Desktop;
-    s:name "Find in page".
-d:Settings a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:name "Settings".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FHighlight> s:sameAs d:Highlight;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Freeform highlighting on the canvas";
-    s:name "Whiteboard/Tool/Highlight".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape%2FCircle> s:sameAs d:Circle;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Create circles";
-    s:name "Whiteboard/Tool/Shape/Circle".
-d:Headings a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Creating headings on a page";
-    s:name "Headings".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FConnector> s:sameAs d:Connector;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Connect any element on the canvas with a line. Add arrows to signal a direction. Add text on the connector. Can also be used to draw lines that are not connected to anything.";
-    s:name "Whiteboard/Tool/Connector".
-d:Android a d:Platform;
-    s:name "Android".
-d:Export a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "Export".
+    s:description "Selected objects (eg. drawing, shapes, blocks, pages) all have an Object Action Bar that allows the user to change it's appearance (eg. color, text size and style) or interact with it (link, open in right sidebar).";
+    s:name "Whiteboard/Action Bar".
 <https://docs.logseq.com/#/page/Whiteboard%2FObject%2FTweet> s:sameAs d:Tweet, d:Tweets;
     a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
     s:description "Embedded tweets";
     d:supports "Url, Link to page/block, Mobile context menu";
     s:name "Whiteboard/Object/Tweet".
+<https://docs.logseq.com/#/page/Left%20sidebar> a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:name "Left sidebar".
+<https://docs.logseq.com/#/page/Linked%20References> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "Linked References".
+<https://docs.logseq.com/#/page/Whiteboard%2FElement%20locking> s:sameAs <https://docs.logseq.com/#/page/Element%20locking>;
+    a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Allows locking whiteboard elements, rendering them unmodifiable";
+    d:initial-version "0.9.4";
+    s:name "Whiteboard/Element locking".
+d:templates a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:name "templates".
+<https://docs.logseq.com/#/page/Query%20table> a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:description d:Queries, <https://docs.logseq.com/#/page/Advanced%20Queries>;
+    s:name "Query table".
+<https://docs.logseq.com/#/page/custom.css> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Local config file, logseq/custom.css, loads custom css for a graph on startup";
+    s:name "custom.css".
+<https://docs.logseq.com/#/page/export.css> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Local config file, logseq/export.css, loads custom css for a published graph";
+    s:name "export.css".
+<https://docs.logseq.com/#/page/Youtube%20timestamp> a d:Feature;
+    d:platforms d:Desktop;
+    s:name "Youtube timestamp".
+d:slide s:sameAs d:Presentation;
+    a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "slide".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FGlobal%20scale%20select> s:sameAs <https://docs.logseq.com/#/page/Global%20scale%20select>;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Sets the global scale level";
+    d:initial-version "0.9.3";
+    s:name "Whiteboard/Tool/Global scale select".
+<https://docs.logseq.com/#/page/term%2Falias> s:sameAs <https://docs.logseq.com/#/page/page%20alias>;
+    a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Provides a readable alias for a page. A page can have multiple aliases. Page references with the alias will automatically redirect to the original page";
+    s:name "term/alias".
+d:Zotero a d:Feature;
+    s:description "Built in integration that helps import your Zotero items as pages seamlessly. [Zotero](https://www.zotero.org/) is a free, easy-to-use tool to help you collect, organize, cite, and share research.";
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:name "Zotero".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape> s:sameAs d:Shape, d:Shapes;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Create rectangle, circle and triangle shapes on the canvas";
+    s:name "Whiteboard/Tool/Shape".
+d:Plugins a d:Feature;
+    s:description "Extends the functionality of logseq with third party tools";
+    d:platforms d:Desktop;
+    s:name "Plugins".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FConnector> s:sameAs d:Connector;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Connect any element on the canvas with a line. Add arrows to signal a direction. Add text on the connector. Can also be used to draw lines that are not connected to anything.";
+    s:name "Whiteboard/Tool/Connector".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape%2FTriangle> s:sameAs d:Triangle;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Create triangles";
+    s:name "Whiteboard/Tool/Shape/Triangle".
+<https://docs.logseq.com/#/page/Local%20Http%20server> a d:Feature;
+    d:platforms d:Desktop;
+    s:description "local HTTP server to access logseq's graph";
+    d:initial-version "0.8.15";
+    s:name "Local Http server".
+d:Calculator a d:Command;
+    s:description "The calculator supports basic operations like `+ - / * ^`  and advanced operations (factorial, modular division, and scientific functions).";
+    s:name "Calculator".
+<https://docs.logseq.com/#/page/Keyboard%20shortcuts> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Provides keyboards shortcuts for running core commands and actions. Shortcuts can be customized through user configuration.";
+    s:name "Keyboard shortcuts".
+d:Namespaces a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Used to group a set of related pages";
+    s:name "Namespaces".
+<https://docs.logseq.com/#/page/Right%20sidebar> a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:name "Right sidebar".
+<https://docs.logseq.com/#/page/ClojureScript%20Eval%20in%20a%20Block> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Run ClojureScript in a block using [sci](https://github.com/babashka/sci)";
+    s:name "ClojureScript Eval in a Block".
+<https://docs.logseq.com/#/page/Whiteboard%2FCanvas> s:sameAs d:Canvas;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:description <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:name "Whiteboard/Canvas".
+d:Commands a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Functionality that can be invoked from any block";
+    s:name "Commands".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FPencil> s:sameAs d:Pencil;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:supports "Color Swatch, Link to page/block, Mobile context menu";
+    s:description "Freeform pencil drawings on the canvas";
+    s:name "Whiteboard/Tool/Pencil".
+d:Cloze a d:Command;
+    s:description d:Flashcards;
+    s:name "Cloze".
+d:Settings a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:name "Settings".
+<https://docs.logseq.com/#/page/Global%20configuration> a d:Feature;
+    d:platforms d:Desktop;
+    s:description <https://docs.logseq.com/#/page/Global%20config.edn>, <https://docs.logseq.com/#/page/plugins.edn>;
+    d:initial-version "0.8.6";
+    s:name "Global configuration".
+<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FYoutube> s:sameAs d:Youtube, <https://docs.logseq.com/#/page/Youtube%20video>, <https://docs.logseq.com/#/page/Youtube%20videos>;
+    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Embedded Youtube videos";
+    d:supports "Url, Link to page/block, Mobile context menu";
+    s:name "Whiteboard/Object/Youtube".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FText> s:sameAs d:Text;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Create text elements";
+    s:name "Whiteboard/Tool/Text".
+d:Android a d:Platform;
+    s:name "Android".
+<https://docs.logseq.com/#/page/Whiteboard%2FToolbar> s:sameAs d:Toolbar;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:name "Whiteboard/Toolbar".
 d:Draw a d:Command;
     s:description "Draw in blocks using an embedded Excalidraw canvas";
     s:name "Draw".
@@ -214,39 +222,33 @@ d:Draw a d:Command;
     s:description <https://docs.logseq.com/#/page/config.edn>;
     d:initial-version "0.8.6";
     s:name "Global config.edn".
-<https://docs.logseq.com/#/page/Whiteboard%2FQuick%20Add> s:sameAs <https://docs.logseq.com/#/page/Quick%20Add>;
-    a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:description <https://docs.logseq.com/#/page/Logseq%20Portal>, d:Canvas, d:Block, d:Page, d:Whiteboard;
-    s:name "Whiteboard/Quick Add".
-<https://docs.logseq.com/#/page/Whiteboard%2FAction%20Bar> s:sameAs <https://docs.logseq.com/#/page/Object%20Action%20Bar>;
-    a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:description "Selected objects (eg. drawing, shapes, blocks, pages) all have an Object Action Bar that allows the user to change it's appearance (eg. color, text size and style) or interact with it (link, open in right sidebar).";
-    s:name "Whiteboard/Action Bar".
-<https://docs.logseq.com/#/page/custom.js> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:name "custom.js".
-<https://docs.logseq.com/#/page/Unlinked%20References> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "Unlinked References".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape%2FCircle> s:sameAs d:Circle;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Create circles";
+    s:name "Whiteboard/Tool/Shape/Circle".
 <https://docs.logseq.com/#/page/plugins.edn> a d:Feature;
     d:platforms d:Desktop;
     s:description d:Plugins;
     d:initial-version "0.8.9";
     s:name "plugins.edn".
+d:Search a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "Search".
+<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FiFrame> s:sameAs d:iFrame;
+    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:supports "Reload, Url, Open, Link to page/block, Mobile context menu";
+    s:name "Whiteboard/Object/iFrame".
 <https://docs.logseq.com/#/page/All%20pages> a d:Feature;
     s:description "Page dedicated to page management - search, delete and sort pages.";
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "All pages".
-<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FImage> s:sameAs d:Image;
-    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    d:supports "Link to page/block, Mobile context menu";
-    s:name "Whiteboard/Object/Image".
-d:Cloze a d:Command;
-    s:description d:Flashcards;
-    s:name "Cloze".
-d:Import a d:Feature;
+<https://docs.logseq.com/#/page/Copy%20and%20Paste> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:name "Import".
+    s:description "Describes copy and the difference between formatted and raw paste";
+    s:name "Copy and Paste".
+<https://docs.logseq.com/#/page/Unlinked%20References> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "Unlinked References".
 d:Desktop a d:Platform;
     s:description "Desktop environments we support are osx, linux and windows. We use [Electron](https://www.electronjs.org/) for desktop.";
     s:name "Desktop".
@@ -265,24 +267,10 @@ d:Properties a d:Feature;
     s:sameAs <https://docs.logseq.com/#/page/term%2Fblock%20reference>;
     s:description "Clickable link to a particular Logseq block  e.g. `((123e4567-e89b-12d3-a456-426614174000))`. Produced by putting a unique [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) inside parenthesis `(())`";
     s:name "Block Reference".
-<https://docs.logseq.com/#/page/Journals%20page> a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "Journals page".
-<https://docs.logseq.com/#/page/Whiteboard%2FToolbar> s:sameAs d:Toolbar;
+<https://docs.logseq.com/#/page/Whiteboard%2FDashboard> s:sameAs <https://docs.logseq.com/#/page/Whiteboard%20Dashboard>;
     a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:name "Whiteboard/Toolbar".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape> s:sameAs d:Shape, d:Shapes;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Create rectangle, circle and triangle shapes on the canvas";
-    s:name "Whiteboard/Tool/Shape".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FPencil> s:sameAs d:Pencil;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    d:supports "Color Swatch, Link to page/block, Mobile context menu";
-    s:description "Freeform pencil drawings on the canvas";
-    s:name "Whiteboard/Tool/Pencil".
-d:Search a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "Search".
+    s:description "A page where you can manage your Whiteboards.";
+    s:name "Whiteboard/Dashboard".
 <https://docs.logseq.com/#/page/Publish%20Web> a d:Platform;
     s:description d:Web;
     s:name "Publish Web".
@@ -291,10 +279,13 @@ d:Flashcards a d:Feature;
     s:name "Flashcards".
 <https://docs.logseq.com/#/page/All%20Platforms> a d:Platform;
     s:name "All Platforms".
-d:Tags a d:Feature;
-    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Annotates pages or blocks with a single value";
-    s:name "Tags".
+d:Query a d:Command;
+    s:description d:Queries;
+    s:name "Query".
+<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FImage> s:sameAs d:Image;
+    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:supports "Link to page/block, Mobile context menu";
+    s:name "Whiteboard/Object/Image".
 d:Whiteboard a d:Feature;
     s:description "Put thoughts from your knowledge base as well as new ones next to each other on a spatial canvas together with shapes, drawings, website embeds and connectors. Built on a fork of [tldraw](https://github.com/tldraw/tldraw).";
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
@@ -307,33 +298,38 @@ d:iOS a d:Platform;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Local config file, `logseq/config.edn`, is the main configuration file for a graph";
     s:name "config.edn".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FHighlight> s:sameAs d:Highlight;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Freeform highlighting on the canvas";
+    s:name "Whiteboard/Tool/Highlight".
 d:Queries a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Also known as simple queries";
     s:name "Queries".
+<https://docs.logseq.com/#/page/Numbered%20List> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Provides numbered (ordered) lists with each list item being a block.";
+    d:initial-version "0.9.5";
+    s:name "Numbered List".
 d:Web a d:Platform;
     s:name "Web".
-<https://docs.logseq.com/#/page/Global%20configuration> a d:Feature;
+d:Macros a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Provides a way to write and maintain reusable text. This text can render as html and can invoke some other features";
+    s:name "Macros".
+<https://docs.logseq.com/#/page/Find%20in%20page> a d:Feature;
+    d:initial-version "0.8.3";
+    s:description "Finds any text that is visible or loaded into the current page";
     d:platforms d:Desktop;
-    s:description <https://docs.logseq.com/#/page/Global%20config.edn>, <https://docs.logseq.com/#/page/plugins.edn>;
-    d:initial-version "0.8.6";
-    s:name "Global configuration".
-<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FiFrame> s:sameAs d:iFrame;
-    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    d:supports "Reload, Url, Open, Link to page/block, Mobile context menu";
-    s:name "Whiteboard/Object/iFrame".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape%2FTriangle> s:sameAs d:Triangle;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Create triangles";
-    s:name "Whiteboard/Tool/Shape/Triangle".
-<https://docs.logseq.com/#/page/Copy%20and%20Paste> a d:Feature;
+    s:name "Find in page".
+d:Headings a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Creating headings on a page";
+    s:name "Headings".
+<https://docs.logseq.com/#/page/Undo%20and%20Redo> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
-    s:description "Describes copy and the difference between formatted and raw paste";
-    s:name "Copy and Paste".
-<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape%2FRectangle> s:sameAs d:Rectangle, d:Rect;
-    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
-    s:description "Create rectangles";
-    s:name "Whiteboard/Tool/Shape/Rectangle".
+    s:description "Allows users to revert or reapply changes made during their editing sessions. It also enhances the user experience by providing a convenient way to correct mistakes and explore alternative edits.";
+    s:name "Undo and Redo".
 d:Tasks a d:Feature;
     s:sameAs d:Todos;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
@@ -341,20 +337,52 @@ d:Tasks a d:Feature;
 <https://docs.logseq.com/#/page/Custom%20theme> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
     s:name "Custom theme".
+<https://docs.logseq.com/#/page/Logseq%20Sync> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, d:Web, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Paid feature that provides encrypted synchronization of graphs between devices.";
+    s:name "Logseq Sync".
 d:Publishing a d:Feature;
     d:platforms d:Desktop;
     s:description <https://docs.logseq.com/#/page/Publish%20Web>;
     s:name "Publishing".
-<https://docs.logseq.com/#/page/Page%20graph> a d:Feature;
-    s:description <https://docs.logseq.com/#/page/Graph%20view>;
+<https://docs.logseq.com/#/page/Query%20Builder> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:name "Page graph".
-<https://docs.logseq.com/#/page/Local%20Http%20server> a d:Feature;
+    s:description d:Queries;
+    s:name "Query Builder".
+<https://docs.logseq.com/#/page/Git%20Auto-Commit> a d:Feature;
     d:platforms d:Desktop;
-    s:description "local HTTP server to access logseq's graph";
-    d:initial-version "0.8.15";
-    s:name "Local Http server".
-d:Macros a d:Feature;
+    s:description "Automatically save commit changes to a git repository.";
+    s:name "Git Auto-Commit".
+d:Tags a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
-    s:description "Provides a way to write and maintain reusable text. This text can render as html and can invoke some other features";
-    s:name "Macros".
+    s:description "Annotates pages or blocks with a single value";
+    s:name "Tags".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FShape%2FRectangle> s:sameAs d:Rectangle, d:Rect;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:description "Create rectangles";
+    s:name "Whiteboard/Tool/Shape/Rectangle".
+<https://docs.logseq.com/#/page/Whiteboard%2FQuick%20Add> s:sameAs <https://docs.logseq.com/#/page/Quick%20Add>;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:description <https://docs.logseq.com/#/page/Logseq%20Portal>, d:Canvas, d:Block, d:Page, d:Whiteboard;
+    s:name "Whiteboard/Quick Add".
+<https://docs.logseq.com/#/page/Whiteboard%2FContext%20Menu> s:sameAs <https://docs.logseq.com/#/page/Context%20Menu>;
+    a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:description <https://docs.logseq.com/#/page/Whiteboard%20objects>;
+    s:name "Whiteboard/Context Menu".
+<https://docs.logseq.com/#/page/User%20configuration> a d:Feature;
+    s:description "Users can configure logseq with a number of files.";
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "User configuration".
+d:Export a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "The Logseq Export feature allows users to export their data in various formats, including text, HTML, OPML, PNG, EDN, JSON, and standard Markdown. It supports exporting text selections, blocks, individual pages, or the entire graph with customizable options.";
+    s:name "Export".
+<https://docs.logseq.com/#/page/Whiteboard%2FTool%2FGlobal%20color%20swatch> s:sameAs <https://docs.logseq.com/#/page/Global%20color%20swatch>;
+    a d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Sets the global color";
+    d:initial-version "0.8.12";
+    s:name "Whiteboard/Tool/Global color swatch".
+<https://docs.logseq.com/#/page/Whiteboard%2FEmbed> s:sameAs <https://docs.logseq.com/#/page/Whiteboard%20embeds>;
+    a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    s:name "Whiteboard/Embed".
