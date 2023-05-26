@@ -17,7 +17,7 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: logseq/rdf-export
-        path: _rdf-export
+        path: .logseq-rdf-export
 
     - name: Set up Clojure
       uses: DeLaGuardo/setup-clojure@master
@@ -30,10 +30,10 @@ runs:
       with:
         node-version: '18'
         cache: 'yarn'
-        cache-dependency-path: _rdf-export/yarn.lock
+        cache-dependency-path: .logseq-rdf-export/yarn.lock
 
     - name: Fetch yarn deps
-      run: cd _rdf-export && yarn install --immutable
+      run: cd .logseq-rdf-export && yarn install --immutable
       shell: bash
 
     - name: Nbb cache
@@ -43,19 +43,19 @@ runs:
         path: |
           ~/.m2/repository
           ~/.gitlibs
-          _rdf-export/.nbb/.cache
-        key: ${{ runner.os }}-nbb-deps-${{ hashFiles('_rdf-export/nbb.edn') }}
+          .logseq-rdf-export/.nbb/.cache
+        key: ${{ runner.os }}-nbb-deps-${{ hashFiles('.logseq-rdf-export/nbb.edn') }}
         restore-keys: ${{ runner.os }}-nbb-deps-
 
     - name: Fetch nbb deps
       if: steps.nbb-deps.outputs.cache-hit != 'true'
-      run: cd _rdf-export && yarn nbb-logseq -e ':fetching-deps'
+      run: cd .logseq-rdf-export && yarn nbb-logseq -e ':fetching-deps'
       shell: bash
 
     - name: Export graph to RDF
-      run: cd _rdf-export && node rdf_export.mjs ../${{ inputs.rdfFile }} --directory ${{ inputs.directory }}
+      run: cd .logseq-rdf-export && node rdf_export.mjs ../${{ inputs.rdfFile }} --directory ${{ inputs.directory }}
       shell: bash
 
     - name: Validate RDF file
-      run: cd _rdf-export && yarn ttl ../${{ inputs.rdfFile}}
+      run: cd .logseq-rdf-export && yarn ttl ../${{ inputs.rdfFile}}
       shell: bash
