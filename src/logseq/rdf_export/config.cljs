@@ -35,15 +35,6 @@
    ;; the output. All triples/properties of a page are included.
    ;; These config keys are all optional as they have useful defaults.
    ;;
-   ;; Useful to add individual pages pages e.g. class and property pages
-   :additional-pages #{"Class" "Property"}
-   ;; Query to fetch all pages that are classes
-   ;; Defaults to pages with "type:: [[Class]]"
-   :class-query
-   '[:find (pull ?b [*])
-     :in $ %
-     :where
-     (page-property ?b :type "Class")]
    ;; Query to fetch all pages that are properties.
    ;; Defaults to pages with "type:: [[Property]]"
    :property-query
@@ -51,7 +42,7 @@
      :in $ %
      :where
      (page-property ?b :type "Property")]
-   ;; Query to fetch all pages that are instances of classes.
+   ;; Query to fetch all entities that are instances of classes.
    ;; Defaults to pages with "type:: [[X]]" where X are pages with
    ;; "type:: [[Class]]"
    :class-instances-query
@@ -60,4 +51,9 @@
      :where
      (page-property ?b :type "Class")
      [?b :block/original-name ?n]
-     (page-property ?b2 :type ?n)]})
+     (page-property ?b2 :type ?n)]
+   ;; Query to fetch additional instances.
+   ;; Useful for instances that aren't fetched by :class-instances-query
+   ;; e.g. block-level instances.
+   ;; Defaults to nil
+   :additional-instances-query nil})

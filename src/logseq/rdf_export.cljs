@@ -33,8 +33,8 @@ All of the above pages can be customized with query config options."
             (dissoc :title :tags)
             ((fn [x] (apply dissoc x exclude-properties)))
             expand-entity-fn)
-        (some? block-name)
-        (assoc :block/original-name block-name))))
+         (some? block-name)
+         (assoc :block/original-name block-name))))
    result))
 
 (defn- page-url [page-name config]
@@ -87,48 +87,19 @@ All of the above pages can be customized with query config options."
                          :block/original-name (:block/original-name %)}))
                      (:alias %)))))
 
-(defn- add-classes [db config property-map {:keys [add-labels]}]
-  (let [ents (->> (d/q (:class-query config)
+(defn- add-class-instances [db config property-map {:keys [add-labels]}]
+  (let [ents (->> (d/q (:class-instances-query config)
                        db
-                       (vals rules/query-dsl-rules))
-                  (map first)
-                  (create-entities config))]
-    (concat (mapcat #(triplify % config property-map) ents)
-            (when add-labels
-              (build-alias-triples ents config)))))
-
-(defn- add-properties [ents config property-map {:keys [add-labels]}]
-  (concat
-   (mapcat #(triplify % config property-map) ents)
-   (when add-labels
-     (build-alias-triples ents config))
-   (when add-labels
-     (map block->label-triple (filter :url ents)))))
-
-(defn- add-additional-pages
-  [db {:keys [type-property] :as config} property-map {:keys [add-labels]}]
-  (let [ents (->> (d/q '[:find (pull ?b [*])
-                         :in $ ?names %
-                         :where
-                         [?b :block/name ?n]
-                         [(contains? ?names ?n)]]
-                       db
-                       (set (map string/lower-case (:additional-pages config)))
                        (vals rules/query-dsl-rules))
                   (map first)
                   (create-entities config))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
-       ;; This was added with a certain ontology in mind and may need to be revisited
-       (->> ents
-            (filter type-property)
-            (map #(block->label-triple
-                   {:url (type-property %)
-                    :block/original-name (:block/original-name %)})))))))
+       (build-alias-triples ents config)))))
 
-(defn- add-class-instances [db config property-map {:keys [add-labels]}]
-  (let [ents (->> (d/q (:class-instances-query config)
+(defn- add-additional-instances [db config property-map {:keys [add-labels]}]
+  (let [ents (->> (d/q (:additional-instances-query config)
                        db
                        (vals rules/query-dsl-rules))
                   (map first)
@@ -155,17 +126,16 @@ All of the above pages can be customized with query config options."
         property-map (into built-in-properties
                            (map (juxt (comp keyword :block/original-name) identity)
                                 properties))]
-
-    (concat
-     (add-additional-pages db config property-map options)
-     (add-classes db config property-map options)
-     (add-properties properties config property-map options)
-     (when add-labels
-       (map (fn [[k v]]
-              (block->label-triple
-               {:url (:url v) :block/original-name (name k)}))
-            (dissoc built-in-properties :block/original-name)))
-     (add-class-instances db config property-map options))))
+    (set
+     (concat
+      (add-class-instances db config property-map options)
+      (when (seq (:additional-instances-query config))
+        (add-additional-instances db config property-map options))
+      (when add-labels
+        (map (fn [[k v]]
+               (block->label-triple
+                {:url (:url v) :block/original-name (name k)}))
+             (dissoc built-in-properties :block/original-name)))))))
 
 (defn- add-quads [writer quads]
   (doseq [[q1 q2 q3]
@@ -174,7 +144,7 @@ All of the above pages can be customized with query config options."
                          (.namedNode DataFactory %)
                          (.literal DataFactory %))
                       q))
-               quads)]
+               (sort quads))]
     (.addQuad writer (.quad DataFactory q1 q2 q3))))
 
 (defn- read-config [config]

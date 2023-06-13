@@ -1,3 +1,7 @@
+## Unreleased
+* Remove unused :class-query and :additional-pages config options
+* Sort triples for easier diffing
+
 ## 0.2.0
 
 * Add support for block level exports

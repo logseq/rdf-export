@@ -5,9 +5,9 @@
    (do
      (shell "node rdf_export.mjs docs.ttl -d ../docs")
      ;; Fixtures are from 4f90db4f371c1ecf750f16ec614f54154d36575c of https://github.com/logseq/docs
-     (shell "diff docs.ttl test/fixtures/docs.ttl")
+     (shell "diff test/fixtures/docs.ttl docs.ttl")
      (shell "ttl docs.ttl")
      (shell "node rdf_export.mjs docs-with-labels.ttl -d ../docs --add-labels -c '{:exclude-properties [:initial-version :description]}'")
-     (shell "diff docs-with-labels.ttl test/fixtures/docs-with-labels.ttl")
+     (shell "diff test/fixtures/docs-with-labels.ttl docs-with-labels.ttl")
      (shell "ttl docs-with-labels.ttl")
      (println "Success!"))}}}
