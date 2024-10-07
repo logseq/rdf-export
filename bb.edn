@@ -4,7 +4,7 @@
    :task
    (do
      (shell "node rdf_export.mjs docs.ttl -d ../docs")
-     ;; Fixtures are from 4f90db4f371c1ecf750f16ec614f54154d36575c of https://github.com/logseq/docs
+     ;; Fixtures are from 16a5f81178a0f2d79113aa5f525c768a51fc0972 of https://github.com/logseq/docs
      (shell "diff test/fixtures/docs.ttl docs.ttl")
      (shell "ttl docs.ttl")
      (shell "node rdf_export.mjs docs-with-labels.ttl -d ../docs --add-labels -c '{:exclude-properties [:initial-version :description]}'")

@@ -28,6 +28,15 @@ d:Android a d:Platform;
     s:description "Clickable link to a particular Logseq block  e.g. `((123e4567-e89b-12d3-a456-426614174000))`. Produced by putting a unique [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) inside parenthesis `(())`";
     s:name "Block Reference";
     s:sameAs <https://docs.logseq.com/#/page/term%2Fblock%20reference>.
+<https://docs.logseq.com/#/page/Block%20embed> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Also known as block embedding, this allows a portion of a page to be displayed within another. Edits made to the embedded content are also made in the referenced content.";
+    s:name "Block embed";
+    s:sameAs <https://docs.logseq.com/#/page/term%2Fembedded%20block>.
+d:Boolean a d:Class;
+    s:name "Boolean";
+    s:url s:Boolean;
+    <https://www.w3.org/2000/01/rdf-schema#subClassOf> d:DataType.
 d:Calculator a d:Command;
     s:description "The calculator supports basic operations like `+ - / * ^`  and advanced operations (factorial, modular division, and scientific functions).";
     s:name "Calculator".
@@ -44,6 +53,10 @@ d:Class a d:Class;
 d:Cloze a d:Command;
     s:description d:Flashcards;
     s:name "Cloze".
+<https://docs.logseq.com/#/page/Code%20block> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description d:Codemirror;
+    s:name "Code block".
 d:Command a d:Class;
     s:description <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
     s:name "Command";
@@ -60,6 +73,11 @@ d:Commands a d:Feature;
 <https://docs.logseq.com/#/page/Custom%20theme> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
     s:name "Custom theme".
+d:DataType a d:Class;
+    s:description "Provides basic data types such as integers, strings, etc. See https://www.w3.org/TR/rdf12-concepts/#section-Datatypes for additional datatypes that could be possible";
+    s:name "DataType";
+    s:url s:DataType;
+    <https://www.w3.org/2000/01/rdf-schema#subClassOf> d:Class.
 d:Desktop a d:Platform;
     s:description "Desktop environments we support are osx, linux and windows. We use [Electron](https://www.electronjs.org/) for desktop.";
     s:name "Desktop".
@@ -92,6 +110,7 @@ d:FeatureTag a d:Class;
     s:name "Find in page".
 d:Flashcards a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Cards are blocks that are intended to be used as an aid in memorization";
     s:name "Flashcards".
 <https://docs.logseq.com/#/page/Git%20Auto-Commit> a d:Feature;
     d:platforms d:Desktop;
@@ -107,6 +126,11 @@ d:Flashcards a d:Feature;
     d:platforms d:Desktop;
     s:description <https://docs.logseq.com/#/page/Global%20config.edn>, <https://docs.logseq.com/#/page/plugins.edn>;
     s:name "Global configuration".
+d:Handbook a d:Feature;
+    d:initial-version "0.9.20";
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
+    s:description "Provides in app documentation in the form of short tutorials";
+    s:name "Handbook".
 d:Headings a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Creating headings on a page";
@@ -140,10 +164,17 @@ d:Import a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>, d:Web;
     s:description "Paid feature that provides encrypted synchronization of graphs between devices.";
     s:name "Logseq Sync".
+<https://docs.logseq.com/#/page/Logseq%20Sync%20Encryption> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:name "Logseq Sync Encryption".
 d:Macros a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Provides a way to write and maintain reusable text. This text can render as html and can invoke some other features";
     s:name "Macros".
+<https://docs.logseq.com/#/page/Math%20Block> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Write and render math using https://katex.org/ syntax";
+    s:name "Math Block".
 d:Namespaces a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Used to group a set of related pages";
@@ -159,6 +190,11 @@ d:Namespaces a d:Feature;
 <https://docs.logseq.com/#/page/Page%20and%20block%20references> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "Page and block references".
+<https://docs.logseq.com/#/page/Page%20embed> a d:Feature;
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description <https://docs.logseq.com/#/page/Block%20embed>;
+    s:name "Page embed";
+    s:sameAs <https://docs.logseq.com/#/page/term%2Fembedded%20page>.
 <https://docs.logseq.com/#/page/Page%20graph> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description <https://docs.logseq.com/#/page/Graph%20view>;
@@ -215,6 +251,21 @@ d:Search a d:Feature;
     s:name "Search".
 d:Settings a <https://docs.logseq.com/#/page/UI%20Element>;
     s:name "Settings".
+<https://docs.logseq.com/#/page/Snap%20to%20grid> a d:Feature;
+    d:initial-version "0.9.10";
+    d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
+    s:description "Snap shapes to canvas grid";
+    s:name "Snap to grid".
+d:String a d:Class;
+    d:meta "Prefer the name string over text as it maps with xsd:string";
+    s:name "String";
+    s:url s:Text;
+    <https://www.w3.org/2000/01/rdf-schema#subClassOf> d:DataType.
+d:StringWithRefs a d:Class;
+    s:description "String that can have page references";
+    s:name "StringWithRefs";
+    s:url d:StringWithRefs;
+    <https://www.w3.org/2000/01/rdf-schema#subClassOf> d:DataType.
 d:Tables a <https://docs.logseq.com/#/page/UI%20Element>;
     s:description "Tables are our first versioned component, accepting props to control the output.";
     s:name "Tables".
@@ -242,6 +293,11 @@ d:Thing a d:Class;
 <https://docs.logseq.com/#/page/Unlinked%20References> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "Unlinked References".
+d:Uri a d:Class;
+    d:meta "Couldn't use URL since we're case insensitive and url is already taken";
+    s:name "Uri";
+    s:url s:URL;
+    <https://www.w3.org/2000/01/rdf-schema#subClassOf> d:DataType.
 <https://docs.logseq.com/#/page/User%20configuration> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:description "Users can configure logseq with a number of files.";
@@ -288,6 +344,11 @@ d:Whiteboard a d:Feature;
     d:supports "Link to page/block, Mobile context menu";
     s:name "Whiteboard/Object/Image";
     s:sameAs d:Image.
+<https://docs.logseq.com/#/page/Whiteboard%2FObject%2FPDF> a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:supports "Edit PDF, Link to page/block";
+    s:description "Embedded PDF";
+    s:name "Whiteboard/Object/PDF";
+    s:sameAs d:PDF.
 <https://docs.logseq.com/#/page/Whiteboard%2FObject%2FTweet> a <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
     d:supports "Url, Link to page/block, Mobile context menu";
     s:description "Embedded tweets";
@@ -302,9 +363,6 @@ d:Whiteboard a d:Feature;
     d:supports "Reload, Url, Open, Link to page/block, Mobile context menu";
     s:name "Whiteboard/Object/iFrame";
     s:sameAs d:iFrame.
-<https://docs.logseq.com/#/page/Whiteboard%2FProperty%2FLinks> a d:Property;
-    s:name "Whiteboard/Property/Links";
-    s:sameAs <https://docs.logseq.com/#/page/Whiteboard%20Links>.
 <https://docs.logseq.com/#/page/Whiteboard%2FQuick%20Add> a <https://docs.logseq.com/#/page/UI%20Element>;
     s:description d:Block, d:Canvas, <https://docs.logseq.com/#/page/Logseq%20Portal>, d:Page, d:Whiteboard;
     s:name "Whiteboard/Quick Add";
@@ -383,8 +441,16 @@ d:Zotero a d:Feature;
     s:description "Local config file, logseq/custom.js, loads custom js for a graph on startup";
     s:name "custom.js".
 d:description a d:Property;
+    d:rangeIncludes d:StringWithRefs;
     s:name "description";
     s:url s:description.
+d:domainincludes a d:Property;
+    d:domainIncludes d:Property;
+    d:rangeIncludes d:Class;
+    d:sameas s:domainIncludes;
+    s:description "A more useful version of rdfs:domain as it can be one of multiple values";
+    s:name "domainincludes";
+    s:url d:domainIncludes.
 <https://docs.logseq.com/#/page/export.css> a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/Publish%20Web>;
     s:description "Local config file, logseq/export.css, loads custom css for a published graph";
@@ -393,19 +459,45 @@ d:iOS a d:Platform;
     s:description "This refers to iOS on mobile. Only versions 14 and greater are supported.";
     s:name "iOS".
 d:initial-version a d:Property;
-    s:name "initial-version".
+    d:domainIncludes d:Feature, d:Tool;
+    d:rangeIncludes d:String;
+    s:name "initial-version";
+    s:url d:initial-version.
+d:meta a d:Property;
+    d:rangeIncludes d:String;
+    s:description "Meta description field which usually discusses organizing thing instead of thing itself";
+    s:name "meta";
+    s:url d:meta.
+d:name a d:Property;
+    d:rangeIncludes d:String;
+    d:unique true;
+    s:name "name";
+    s:url s:name.
 d:parent a d:Property;
+    d:domainIncludes d:Class;
+    d:rangeIncludes d:Class;
     s:description "Used to connect a class with its parent class";
     s:name "parent";
     s:url <https://www.w3.org/2000/01/rdf-schema#subClassOf>.
 d:platforms a d:Property;
-    s:name "platforms".
+    d:domainIncludes d:Feature, d:Tool;
+    d:rangeIncludes d:Platform;
+    s:name "platforms";
+    s:url d:platforms.
 <https://docs.logseq.com/#/page/plugins.edn> a d:Feature;
     d:initial-version "0.8.9";
     d:platforms d:Desktop;
     s:description d:Plugins;
     s:name "plugins.edn".
+d:rangeincludes a d:Property;
+    d:domainIncludes d:Property;
+    d:rangeIncludes d:Class;
+    d:sameas s:rangeIncludes;
+    s:description "List of values a property can have";
+    s:name "rangeincludes";
+    s:url d:rangeIncludes.
 d:sameAs a d:Property;
+    d:rangeIncludes d:Uri;
     s:description "Indicates that two URIs are equivalent";
     s:name "sameAs";
     s:url <https://www.w3.org/2002/07/owl#sameAs>.
@@ -413,6 +505,11 @@ d:slide a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "slide";
     s:sameAs d:Presentation.
+d:supports a d:Property;
+    d:domainIncludes d:Tool, <https://docs.logseq.com/#/page/Whiteboard%2FObject>;
+    d:rangeIncludes d:String;
+    s:name "supports";
+    s:url d:supports.
 d:templates a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>, <https://docs.logseq.com/#/page/Publish%20Web>;
     s:name "templates".
@@ -422,8 +519,16 @@ d:templates a d:Feature;
     s:name "term/alias";
     s:sameAs <https://docs.logseq.com/#/page/page%20alias>.
 d:type a d:Property;
+    d:rangeIncludes d:Class;
     s:name "type";
     s:url <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>.
+d:unique a d:Property;
+    d:domainIncludes d:Property;
+    d:rangeIncludes d:Boolean;
+    s:name "unique";
+    s:url d:unique.
 d:url a d:Property;
+    d:rangeIncludes d:Uri;
+    d:unique true;
     s:name "url";
     s:url s:url.
