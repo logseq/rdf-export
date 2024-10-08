@@ -210,8 +210,6 @@ d:Rectangle <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Tool/Shape/
 d:Search a d:Feature;
     <http://www.w3.org/2000/01/rdf-schema#label> "Search";
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>.
-d:Settings a <https://docs.logseq.com/#/page/UI%20Element>;
-    <http://www.w3.org/2000/01/rdf-schema#label> "Settings".
 d:Shape <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Tool/Shape".
 d:Shapes <http://www.w3.org/2000/01/rdf-schema#label> "Whiteboard/Tool/Shape".
 <https://docs.logseq.com/#/page/Snap%20to%20grid> a d:Feature;
@@ -436,6 +434,8 @@ d:sameAs a d:Property;
     <http://www.w3.org/2000/01/rdf-schema#label> "sameAs";
     d:rangeIncludes d:Uri;
     s:url <https://www.w3.org/2002/07/owl#sameAs>.
+d:settings a <https://docs.logseq.com/#/page/UI%20Element>;
+    <http://www.w3.org/2000/01/rdf-schema#label> "settings".
 d:slide a d:Feature;
     <http://www.w3.org/2000/01/rdf-schema#label> "slide";
     <http://www.w3.org/2002/07/owl#sameAs> d:Presentation;

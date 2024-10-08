@@ -10,7 +10,7 @@ All of the above pages can be customized with query config options."
             [clojure.edn :as edn]
             [clojure.set :as set]
             [datascript.core :as d]
-            [logseq.db.rules :as rules]
+            [logseq.db.frontend.rules :as rules]
             [babashka.cli :as cli]
             [logseq.graph-parser.cli :as gp-cli]
             [logseq.rdf-export.config :as config]
@@ -23,10 +23,10 @@ All of the above pages can be customized with query config options."
   (map
    (fn [block]
      (let [block-name (or (get-in block [:block/properties :title])
-                          (:block/original-name block)
+                          (:block/title block)
                           ;; Use page name for non-journal pre-blocks
                           (when-not (get-in block [:block/page :block/journal?])
-                            (get-in block [:block/page :block/original-name])))]
+                            (get-in block [:block/page :block/title])))]
        (cond->
         (-> (:block/properties block)
             ;; TODO: Add proper tags support
@@ -34,7 +34,7 @@ All of the above pages can be customized with query config options."
             ((fn [x] (apply dissoc x exclude-properties)))
             expand-entity-fn)
          (some? block-name)
-         (assoc :block/original-name block-name))))
+         (assoc :block/title block-name))))
    result))
 
 (defn- page-url [page-name config]
@@ -49,8 +49,8 @@ All of the above pages can be customized with query config options."
   [m
    {:keys [url-property type-property classes-without-ids unique-id-properties] :as config}
    property-map]
-  (if-let [subject (if (:block/original-name m)
-                     (page-url (:block/original-name m) config)
+  (if-let [subject (if (:block/title m)
+                     (page-url (:block/title m) config)
                      (some #(when-let [v (m %)]
                               (if (url? v) v (page-url v config)))
                            unique-id-properties))]
@@ -75,7 +75,7 @@ All of the above pages can be customized with query config options."
 (defn- block->label-triple [block]
   [(:url block)
    "http://www.w3.org/2000/01/rdf-schema#label"
-   (:block/original-name block)])
+   (:block/title block)])
 
 (defn- build-alias-triples
   [ents config]
@@ -84,7 +84,7 @@ All of the above pages can be customized with query config options."
        (mapcat #(map (fn [alias]
                        (block->label-triple
                         {:url (page-url alias config)
-                         :block/original-name (:block/original-name %)}))
+                         :block/title (:block/title %)}))
                      (:alias %)))))
 
 (defn- add-class-instances [db config property-map {:keys [add-labels]}]
@@ -115,7 +115,7 @@ All of the above pages can be customized with query config options."
                              (vals rules/query-dsl-rules))
                         (map first)
                         (create-entities config))
-        built-in-properties {:block/original-name
+        built-in-properties {:block/title
                              {:url (if add-labels
                                      "http://www.w3.org/2000/01/rdf-schema#label"
                                      "https://schema.org/name")}
@@ -124,7 +124,7 @@ All of the above pages can be customized with query config options."
                                      "http://www.w3.org/2002/07/owl#sameAs"
                                      "https://schema.org/sameAs")}}
         property-map (into built-in-properties
-                           (map (juxt (comp keyword :block/original-name) identity)
+                           (map (juxt (comp keyword :block/title) identity)
                                 properties))]
     (set
      (concat
@@ -134,8 +134,8 @@ All of the above pages can be customized with query config options."
       (when add-labels
         (map (fn [[k v]]
                (block->label-triple
-                {:url (:url v) :block/original-name (name k)}))
-             (dissoc built-in-properties :block/original-name)))))))
+                {:url (:url v) :block/title (name k)}))
+             (dissoc built-in-properties :block/title)))))))
 
 (defn- add-quads [writer quads]
   (doseq [[q1 q2 q3]

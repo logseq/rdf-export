@@ -50,7 +50,7 @@
      :in $ %
      :where
      (page-property ?b :type "Class")
-     [?b :block/original-name ?n]
+     [?b :block/title ?n]
      (page-property ?b2 :type ?n)]
    ;; Query to fetch additional instances.
    ;; Useful for instances that aren't fetched by :class-instances-query

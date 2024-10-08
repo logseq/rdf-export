@@ -16,8 +16,10 @@
     "url": "https://github.com/logseq/rdf-export/issues"
   },
   "homepage": "https://github.com/logseq/rdf-export#readme",
+  "devDependencies": {
+    "@logseq/nbb-logseq": "logseq/nbb-logseq#feat-db-v16"
+  },
   "dependencies": {
-    "@logseq/nbb-logseq": "^1.2.168",
     "mldoc": "^1.5.0",
     "n3": "^1.16.3",
     "turtle-validator": "^1.1.1"

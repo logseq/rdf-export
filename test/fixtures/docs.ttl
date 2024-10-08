@@ -249,8 +249,6 @@ d:Query a d:Command;
 d:Search a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "Search".
-d:Settings a <https://docs.logseq.com/#/page/UI%20Element>;
-    s:name "Settings".
 <https://docs.logseq.com/#/page/Snap%20to%20grid> a d:Feature;
     d:initial-version "0.9.10";
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
@@ -501,6 +499,8 @@ d:sameAs a d:Property;
     s:description "Indicates that two URIs are equivalent";
     s:name "sameAs";
     s:url <https://www.w3.org/2002/07/owl#sameAs>.
+d:settings a <https://docs.logseq.com/#/page/UI%20Element>;
+    s:name "settings".
 d:slide a d:Feature;
     d:platforms <https://docs.logseq.com/#/page/All%20Platforms>;
     s:name "slide";
