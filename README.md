@@ -3,7 +3,7 @@
 This is a [github action](https://github.com/features/actions) to export a
 configurable portion of a Logseq graph to [RDF](https://www.w3.org/RDF/). Some
 basic validation is also done on the exported rdf file. This action can also be
-run as a [CLI](#cli).
+run as a [CLI](#cli) or using [Docker](#docker).
 
 ## Usage
 
@@ -70,7 +70,6 @@ Since this action produces a valid RDF file, it is easy to save this file for
 later usage using [upload-artifact](https://github.com/actions/upload-artifact):
 
 ```yaml
-
 ---
 - name: Export graph as RDF
   uses: logseq/rdf-export@main
@@ -102,6 +101,16 @@ $ logseq-rdf-export docs.ttl
 Parsing 301 files...
 ...
 Writing 295 triples to file docs.ttl
+```
+
+### Docker
+
+A docker image is available on [Dockerhub](https://hub.docker.com/r/mathiasvda/logseq-rdf-export)
+
+Example usage:
+
+```sh
+$ docker run -it -v <path-to-logseq-graph-directory>:/data /mathiasvda/logseq-rdf-export logseq-rdf-export docs.ttl
 ```
 
 ## Configuration
