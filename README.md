@@ -11,9 +11,9 @@ run as a [CLI](#cli).
 
 By default, this action is configured to export the portion of your Logseq graph that:
 
-* has class pages with properties `type:: [[Class]]`
-* has property pages with properties `type:: [[Property]]`
-* has pages with properties `type:: [[X]]` where X are pages with `type:: [[Class]]`
+- has class pages with properties `type:: [[Class]]`
+- has property pages with properties `type:: [[Property]]`
+- has pages with properties `type:: [[X]]` where X are pages with `type:: [[Class]]`
 
 For an example of such a graph, see https://github.com/logseq/docs. If you would like
 to organize your graph differently, you can [configure it](#configuration).
@@ -23,7 +23,7 @@ to organize your graph differently, you can [configure it](#configuration).
 To setup this action, add the file `.github/workflows/ci.yml` to your graph's
 github repository with the following content:
 
-``` yaml
+```yaml
 on: [push]
 
 jobs:
@@ -70,7 +70,8 @@ Since this action produces a valid RDF file, it is easy to save this file for
 later usage using [upload-artifact](https://github.com/actions/upload-artifact):
 
 ```yaml
-...
+
+---
 - name: Export graph as RDF
   uses: logseq/rdf-export@main
   with:
@@ -95,6 +96,7 @@ $ yarn global add $PWD
 ```
 
 Then use it from any logseq graph directory!
+
 ```sh
 $ logseq-rdf-export docs.ttl
 Parsing 301 files...
@@ -104,7 +106,7 @@ Writing 295 triples to file docs.ttl
 
 ## Configuration
 
-To configure how and what is exported to RDF, create a `.export-rdf/config.edn`
+To configure how and what is exported to RDF, create a `.rdf-export/config.edn`
 file in your graph's directory. It's recommended to configure the `:base-url`
 key so that urls point to your Logseq graph. To configure what is exported,
 knowledge of [advanced
@@ -120,9 +122,11 @@ library](https://github.com/logseq/logseq/tree/master/deps/graph-parser) to expo
 from its database.
 
 ## LICENSE
+
 See LICENSE.md
 
 ## Additional Links
-* https://github.com/logseq/graph-validator - Github action that this one is modeled after
-* https://github.com/rdfjs/N3.js - Library that handles the rdf exporting
-* https://github.com/logseq/docs - Logseq graph that uses this action
+
+- https://github.com/logseq/graph-validator - Github action that this one is modeled after
+- https://github.com/rdfjs/N3.js - Library that handles the rdf exporting
+- https://github.com/logseq/docs - Logseq graph that uses this action
