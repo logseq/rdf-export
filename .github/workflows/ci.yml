@@ -46,4 +46,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: mathiasvda/logseq-export-rdf:latest
+          tags: mathiasvda/logseq-rdf-export:latest
