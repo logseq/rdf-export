@@ -4,7 +4,6 @@ on:
   push:
 
 jobs:
-
   lint:
     runs-on: ubuntu-latest
 
@@ -15,7 +14,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: "zulu"
           java-version: 17
 
       - name: Set up Clojure
@@ -29,4 +28,22 @@ jobs:
       - name: Check outdated dependencies
         uses: liquidz/antq-action@main
         with:
-          excludes: 'clojure/brew-install'
+          excludes: "clojure/brew-install"
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: mathiasvda/logseq-export-rdf:latest
