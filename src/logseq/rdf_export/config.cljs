@@ -57,3 +57,17 @@
    ;; e.g. block-level instances.
    ;; Defaults to nil
    :additional-instances-query nil})
+
+(def file-default-config default-config)
+
+(def db-default-config
+  (merge
+   default-config
+   {:property-query
+    '[:find (pull ?b [*])
+      :where [?b :block/type "property"] [(missing? $ ?b :logseq.property/built-in?)]]
+
+    :class-instances-query
+    '[:find (pull ?b [*])
+      :where
+      [?b :block/name] [?b :block/tags ?t] [(missing? $ ?t :logseq.property/built-in?)]]}))

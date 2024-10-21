@@ -9,15 +9,39 @@ All of the above pages can be customized with query config options."
             [clojure.string :as string]
             [clojure.edn :as edn]
             [clojure.set :as set]
+            [cljs.pprint]
             [datascript.core :as d]
             [logseq.db.frontend.rules :as rules]
+            [logseq.db.frontend.entity-util :as entity-util]
+            [logseq.db.sqlite.cli :as sqlite-cli]
+            [logseq.db.frontend.property :as db-property]
             [babashka.cli :as cli]
             [logseq.graph-parser.cli :as gp-cli]
             [logseq.rdf-export.config :as config]
             [datascript.transit :as dt]))
 
-(defn- create-entities
-  "Given a seq of block maps and config options, create entities which consist
+(defn- db-create-entities
+  "For db graph and given a seq of block maps and config options, create entities which consist
+  of the block's properties and a few built in block attributes"
+  [db {:keys [exclude-properties expand-entity-fn property?]} result]
+  (map
+   (fn [block]
+     (let [block-name (or (:block/title block)
+                          ;; Use page name for non-journal pre-blocks
+                          (when-not (get-in block [:block/page :block/journal?])
+                            (get-in block [:block/page :block/title])))]
+       (cond->
+        (-> (update-vals (db-property/properties block) #(db-property/ref->property-value-contents db %))
+            ((fn [x] (apply dissoc x exclude-properties)))
+            expand-entity-fn)
+         property?
+         (merge (select-keys block [:db/ident]))
+         (some? block-name)
+         (assoc :block/title block-name))))
+   result))
+
+(defn- file-create-entities
+  "For file graph and given a seq of block maps and config options, create entities which consist
   of the block's properties and a few built in block attributes"
   [{:keys [exclude-properties expand-entity-fn]} result]
   (map
@@ -60,6 +84,8 @@ All of the above pages can be customized with query config options."
               subject
               ;; predicate
               (or (url-property (get property-map prop))
+                  ;; TODO: Remove db graph only hack
+                  (:user.property/url (get property-map prop))
                   (page-url (name prop) config))
               ;; object
               %)
@@ -87,45 +113,76 @@ All of the above pages can be customized with query config options."
                          :block/title (:block/title %)}))
                      (:alias %)))))
 
-(defn- add-class-instances [db config property-map {:keys [add-labels]}]
-  (let [ents (->> (d/q (:class-instances-query config)
-                       db
-                       (vals rules/query-dsl-rules))
-                  (map first)
-                  (create-entities config))]
+(defn- add-class-instances [db config property-map {:keys [add-labels db-graph?]}]
+  (let [ents (if db-graph?
+               (->> (d/q (:class-instances-query config)
+                         db)
+                    (map first)
+                    (db-create-entities db config))
+               (->> (d/q (:class-instances-query config)
+                         db
+                         (vals rules/query-dsl-rules))
+                    (map first)
+                    (file-create-entities config)))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
        (build-alias-triples ents config)))))
 
-(defn- add-additional-instances [db config property-map {:keys [add-labels]}]
-  (let [ents (->> (d/q (:additional-instances-query config)
-                       db
-                       (vals rules/query-dsl-rules))
-                  (map first)
-                  (create-entities config))]
+(defn- add-additional-instances [db config property-map {:keys [add-labels db-graph?]}]
+  (let [ents (if db-graph?
+               (->> (d/q (:additional-instances-query config)
+                         db
+                         (vals rules/query-dsl-rules))
+                    (map first)
+                    (db-create-entities db config))
+               (->> (d/q (:additional-instances-query config)
+                         db
+                         (vals rules/query-dsl-rules))
+                    (map first)
+                    (file-create-entities config)))]
     (concat
      (mapcat #(triplify % config property-map) ents)
      (when add-labels
        (build-alias-triples ents config)))))
 
-(defn- create-quads [_writer db config {:keys [add-labels] :as options}]
-  (let [properties (->> (d/q (:property-query config)
-                             db
-                             (vals rules/query-dsl-rules))
-                        (map first)
-                        (create-entities config))
-        built-in-properties {:block/title
-                             {:url (if add-labels
-                                     "http://www.w3.org/2000/01/rdf-schema#label"
-                                     "https://schema.org/name")}
-                             :alias
-                             {:url (if add-labels
-                                     "http://www.w3.org/2002/07/owl#sameAs"
-                                     "https://schema.org/sameAs")}}
-        property-map (into built-in-properties
-                           (map (juxt (comp keyword :block/title) identity)
-                                properties))]
+(defn- create-quads [_writer db config {:keys [add-labels db-graph?] :as options}]
+  (let [properties (if db-graph?
+                     (->> (d/q (:property-query config)
+                               db)
+                          (map first)
+                          (db-create-entities db (assoc config :property? true)))
+                     (->> (d/q (:property-query config)
+                               db
+                               (vals rules/query-dsl-rules))
+                          (map first)
+                          (file-create-entities config)))
+        built-in-properties (if db-graph?
+                              {:block/title
+                               {:url (if add-labels
+                                       "http://www.w3.org/2000/01/rdf-schema#label"
+                                       "https://schema.org/name")}
+                               :block/tags
+                               {:url "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"}
+                               :block/alias
+                               {:url (if add-labels
+                                       "http://www.w3.org/2002/07/owl#sameAs"
+                                       "https://schema.org/sameAs")}}
+                              {:block/title
+                               {:url (if add-labels
+                                       "http://www.w3.org/2000/01/rdf-schema#label"
+                                       "https://schema.org/name")}
+                               :alias
+                               {:url (if add-labels
+                                       "http://www.w3.org/2002/07/owl#sameAs"
+                                       "https://schema.org/sameAs")}})
+        property-map (if db-graph?
+                       (into built-in-properties
+                             (map (juxt :db/ident identity)
+                                  properties))
+                       (into built-in-properties
+                             (map (juxt (comp keyword :block/title) identity)
+                                  properties)))]
     (set
      (concat
       (add-class-instances db config property-map options)
@@ -154,11 +211,11 @@ All of the above pages can be customized with query config options."
       (println "Error: Failed to parse config. Make sure it is valid EDN")
       (js/process.exit 1))))
 
-(defn get-graph-config [dir user-config]
+(defn get-graph-config [dir user-config {:keys [db-graph?]}]
   (merge-with (fn [v1 v2]
                 (if (and (map? v1) (map? v2))
                   (merge v1 v2) v2))
-              config/default-config
+              (if db-graph? config/db-default-config config/file-default-config)
               (when (fs/existsSync (path/join dir ".rdf-export" "config.edn"))
                 (read-config
                  (str (fs/readFileSync (path/join dir ".rdf-export" "config.edn")))))
@@ -183,7 +240,7 @@ All of the above pages can be customized with query config options."
             :coerce :boolean
             :desc "Print help"}})
 
-(defn- get-db
+(defn- get-file-db
   "If cached db exists get it, otherwise parse for a fresh db"
   [graph-dir cache-dir]
   ;; cache-db from https://github.com/logseq/bb-tasks
@@ -217,20 +274,35 @@ All of the above pages can be customized with query config options."
                     %)
                   %)))
 
+(defn- get-db-and-repo-config
+  [graph-dir {:keys [cache-dir db-graph?]}]
+  (let [db (if db-graph?
+             @(sqlite-cli/open-db! (path/dirname graph-dir) (path/basename graph-dir))
+             (get-file-db graph-dir cache-dir))
+        config (if db-graph?
+                 (-> (d/q '[:find ?content
+                            :where [?b :file/path "logseq/config.edn"] [?b :file/content ?content]]
+                          db)
+                     ffirst
+                     edn/read-string)
+                 (if (fs/existsSync (path/join graph-dir "logseq" "config.edn"))
+                   (-> (path/join graph-dir "logseq" "config.edn") fs/readFileSync str edn/read-string)
+                   {}))]
+    [db config]))
+
 (defn write-rdf-file
   "Given a graph's dir, covert to rdf and write to given file."
   [dir file & [options]]
-  (let [graph-config (get-graph-config dir (:config options))
-        db (get-db dir (:cache-dir options))
-        logseq-config (if (fs/existsSync (path/join dir "logseq" "config.edn"))
-                        (-> (path/join dir "logseq" "config.edn") fs/readFileSync str edn/read-string)
-                        {})
+  (let [db-graph? (sqlite-cli/db-graph-directory? dir)
+        graph-config (get-graph-config dir (:config options) {:db-graph? db-graph?})
+        options' (assoc options :db-graph? db-graph?)
+        [db logseq-config] (get-db-and-repo-config dir options')
         writer (Writer. (clj->js {:prefixes (:prefixes graph-config)
                                   :format (:format graph-config)}))
         graph-config' (if (:expand-macros graph-config)
                         (assoc graph-config :expand-entity-fn #(macro-expand-entity % logseq-config))
                         (assoc graph-config :expand-entity-fn identity))
-        quads (create-quads writer db graph-config' options)]
+        quads (create-quads writer db graph-config' options')]
     (add-quads writer quads)
     (.end writer (fn [_err result]
                    (println "Writing" (count quads) "triples to file" file)
