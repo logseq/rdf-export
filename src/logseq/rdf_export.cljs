@@ -12,7 +12,6 @@ All of the above pages can be customized with query config options."
             [cljs.pprint]
             [datascript.core :as d]
             [logseq.db.frontend.rules :as rules]
-            [logseq.db.frontend.entity-util :as entity-util]
             [logseq.db.sqlite.cli :as sqlite-cli]
             [logseq.db.frontend.property :as db-property]
             [babashka.cli :as cli]
