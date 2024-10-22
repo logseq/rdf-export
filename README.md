@@ -104,7 +104,7 @@ Writing 295 triples to file docs.ttl
 
 ## Configuration
 
-To configure how and what is exported to RDF, create a `.export-rdf/config.edn`
+To configure how and what is exported to RDF, create a `.rdf-export/config.edn`
 file in your graph's directory. It's recommended to configure the `:base-url`
 key so that urls point to your Logseq graph. To configure what is exported,
 knowledge of [advanced
