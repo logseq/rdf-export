@@ -124,5 +124,7 @@ See LICENSE.md
 
 ## Additional Links
 * https://github.com/logseq/graph-validator - Github action that this one is modeled after
+* https://github.com/Matdata-eu/logseq-rdf-export-docker - Docker image of this repository which
+  also supports GitLab use
 * https://github.com/rdfjs/N3.js - Library that handles the rdf exporting
 * https://github.com/logseq/docs - Logseq graph that uses this action
