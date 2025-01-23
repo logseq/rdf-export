@@ -32,7 +32,7 @@ jobs:
     name: Test rdf export
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Export graph as RDF
         uses: logseq/rdf-export@main
@@ -76,7 +76,7 @@ later usage using [upload-artifact](https://github.com/actions/upload-artifact):
   with:
     rdfFile: my-graph.ttl
 
-- uses: actions/upload-artifact@v3
+- uses: actions/upload-artifact@v4
   with:
     name: Exported RDF
     path: my-graph.ttl
