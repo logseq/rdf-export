@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.1
 * Remove unused :class-query and :additional-pages config options
 * Sort triples for easier diffing
 
