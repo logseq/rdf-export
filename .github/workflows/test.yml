@@ -10,4 +10,4 @@ jobs:
 
       # TODO: Test a real graph
       - name: Run github action
-        uses: logseq/rdf-export@main
+        uses: logseq/rdf-export@feat/db

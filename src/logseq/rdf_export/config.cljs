@@ -21,7 +21,7 @@
    ;; Property used to look up a Class of an entity. Default to :type
    :type-property :type
    ;; When an entity doesn't have a unique string to identify it, usually through
-   ;; :block/original-name, look up these properties in order
+   ;; :block/title, look up these properties in order
    :unique-id-properties []
    ;; Properties that are excluded in export for all entities.
    ;; Useful if some properties cause issues with a rdf consumer
@@ -50,7 +50,7 @@
      :in $ %
      :where
      (page-property ?b :type "Class")
-     [?b :block/original-name ?n]
+     [?b :block/title ?n]
      (page-property ?b2 :type ?n)]
    ;; Query to fetch additional instances.
    ;; Useful for instances that aren't fetched by :class-instances-query
